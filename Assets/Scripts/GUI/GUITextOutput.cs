@@ -11,7 +11,6 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private float _fontSize = 6;
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
 
-    // Start is called before the first frame update
     void Awake() => Initialize();
 
     private void Initialize()
@@ -28,7 +27,7 @@ public class GUITextOutput : MonoBehaviour
 
                 newObj.AddComponent<TextMeshPro>();
                 var newObjTMPro = newObj.GetComponent<TextMeshPro>();
-                newObjTMPro.text = "<mspace=1>_</mspace>";
+                newObjTMPro.text = "_";
                 newObjTMPro.fontSize = _fontSize;
                 newObjTMPro.alignment = _alignment;
 
@@ -38,11 +37,5 @@ public class GUITextOutput : MonoBehaviour
                 _output[x, y] = newObjTMPro;
             }
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
