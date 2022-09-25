@@ -12,8 +12,6 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private FontStyles _fontStyle;
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
 
-    void Awake() => Initialize();
-
     private void Initialize()
     {
         _output = new TextMeshPro[10, 10];
@@ -40,4 +38,6 @@ public class GUITextOutput : MonoBehaviour
             }
         }
     }
+
+    void Awake() => Initialize();
 }
