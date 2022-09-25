@@ -40,7 +40,7 @@ public class GUITextOutput : MonoBehaviour
 
     void Awake() => Initialize();
 
-    private void Update()
+    private void UpdateOutput()
     {
         var board = GameData.Instance.board;
         for (int x = 0; x < board.xWidth; x++)
@@ -59,4 +59,6 @@ public class GUITextOutput : MonoBehaviour
             }
         }
     }
+
+    private void Update() => UpdateOutput();
 }

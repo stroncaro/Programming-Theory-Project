@@ -254,7 +254,7 @@ MonoBehaviour:
   _cellWidth: 0.5
   _fontSize: 6
   _fontStyle: 1
-  _alignment: 2050
+  _alignment: 4098
 --- !u!1 &1050626454
 GameObject:
   m_ObjectHideFlags: 0
