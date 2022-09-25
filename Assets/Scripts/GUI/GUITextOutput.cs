@@ -9,6 +9,7 @@ public class GUITextOutput : MonoBehaviour
 
     [SerializeField] private float _cellWidth = 0.5f;
     [SerializeField] private float _fontSize = 6;
+    [SerializeField] private FontStyles _fontStyle;
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
 
     void Awake() => Initialize();
@@ -29,6 +30,7 @@ public class GUITextOutput : MonoBehaviour
                 var newObjTMPro = newObj.GetComponent<TextMeshPro>();
                 newObjTMPro.text = "_";
                 newObjTMPro.fontSize = _fontSize;
+                newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
 
                 var newObjRectTransform = newObj.GetComponent<RectTransform>();

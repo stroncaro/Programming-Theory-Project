@@ -253,4 +253,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cellWidth: 0.5
   _fontSize: 6
+  _fontStyle: 1
   _alignment: 2050
