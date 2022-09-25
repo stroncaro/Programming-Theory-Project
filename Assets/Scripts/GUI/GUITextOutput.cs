@@ -14,7 +14,7 @@ public class GUITextOutput : MonoBehaviour
 
     private void Initialize()
     {
-        _output = new TextMeshPro[10, 10];
+        _output = new TextMeshPro[GameData.Instance.board.xWidth, GameData.Instance.board.yWidth];
 
         for (int x = 0; x < _output.GetLength(0); x++)
         {
@@ -26,7 +26,6 @@ public class GUITextOutput : MonoBehaviour
 
                 newObj.AddComponent<TextMeshPro>();
                 var newObjTMPro = newObj.GetComponent<TextMeshPro>();
-                newObjTMPro.text = "_";
                 newObjTMPro.fontSize = _fontSize;
                 newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
@@ -40,4 +39,24 @@ public class GUITextOutput : MonoBehaviour
     }
 
     void Awake() => Initialize();
+
+    private void Update()
+    {
+        var board = GameData.Instance.board;
+        for (int x = 0; x < board.xWidth; x++)
+        {
+            for (int y = 0; y < board.yWidth; y++)
+            {
+                switch (board.contents[x, y])
+                {
+                    case true:
+                        _output[x, y].text = "X";
+                        break;
+                    case false:
+                        _output[x, y].text = "_";
+                        break;
+                }
+            }
+        }
+    }
 }
