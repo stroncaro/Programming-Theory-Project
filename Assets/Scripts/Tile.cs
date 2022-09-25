@@ -6,8 +6,8 @@ public class Tile : MonoBehaviour
 {
     private SpriteRenderer _sprite;
 
-    private int _colorIndex;
-    [SerializeField] private Color[] baseColors = new Color[2]; //0 is light, 1 is dark
+    private int _colorIndex; //0 is light, 1 is dark
+    [SerializeField] private Color[] _baseColors = new Color[2];
 
     public int colorIndex
     {
@@ -21,12 +21,9 @@ public class Tile : MonoBehaviour
             }
 
             _colorIndex = value;
-            this.SetColor(baseColors[_colorIndex]);
+            SetColor(_baseColors[_colorIndex]);
         }
     }
-
-    
-    
 
     private void Awake()
     {
@@ -35,6 +32,6 @@ public class Tile : MonoBehaviour
 
     private void SetColor(Color value)
     {
-        this._sprite.color = value;
+        _sprite.color = value;
     }
 }
