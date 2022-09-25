@@ -1,12 +1,16 @@
 public class Board
 {
     private int _xWidth, _yWidth;
-    private bool[,] _board;
+    public int xWidth { get => _xWidth; }
+    public int yWidth { get => _yWidth; }
+    
+    private bool[,] _contents;
+    public bool[,] contents { get => _contents; }
 
     public Board(int xWidth, int yWidth)
     {
         _xWidth = xWidth;
         _yWidth = yWidth;
-        _board = new bool[_xWidth, _yWidth];
+        _contents = new bool[_xWidth, _yWidth];
     }
 }
