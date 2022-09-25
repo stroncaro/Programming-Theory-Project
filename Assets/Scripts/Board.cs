@@ -4,13 +4,9 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    [SerializeField] private Tile tilePrefab;
+    [SerializeField] private Tile tileActivePrefab;
+    [SerializeField] private Tile tileInactivePrefab;
 
-    //colors for tiles, should be moved out later into a UI class or something
-    [SerializeField] private Color activeLightColor;
-    [SerializeField] private Color activeDarkColor;
-    [SerializeField] private Color inactiveLightColor;
-    [SerializeField] private Color inactiveDarkColor;
 
     //make visible in inspector temporarily
     private Tile[,] tileMap  = new Tile[9, 9];
@@ -23,11 +19,11 @@ public class Board : MonoBehaviour
         {
             for (int y = 0; y < tileMap.GetLength(1); y++)
             {
-                Tile newTile = Instantiate(tilePrefab);
+                Tile newTile = Instantiate(tileActivePrefab);
                 newTile.transform.position = new Vector2(x, y);
                 newTile.transform.SetParent(this.transform);
                 newTile.gameObject.name = string.Format("Tile({0},{1})", x, y);
-                newTile.color = (x + y) % 2 == 0 ? activeLightColor : activeDarkColor;
+                newTile.colorIndex = (x + y) % 2;
                 
                 tileMap[x,y] = newTile;
             }
