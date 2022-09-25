@@ -168,6 +168,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 6388818217026411265, guid: 33cb806a11a2d044b97268baa77e41c4, type: 3}
+  activeLightColor: {r: 1, g: 1, b: 1, a: 1}
+  activeDarkColor: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 1}
+  inactiveLightColor: {r: 0.33333334, g: 0.33333334, b: 0.33333334, a: 1}
+  inactiveDarkColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
