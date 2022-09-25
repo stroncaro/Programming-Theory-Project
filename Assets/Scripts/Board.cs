@@ -24,9 +24,11 @@ public class Board : MonoBehaviour
             for (int y = 0; y < tileMap.GetLength(1); y++)
             {
                 Tile newTile = Instantiate(tilePrefab);
+                newTile.transform.position = new Vector2(x, y);
                 newTile.transform.SetParent(this.transform);
                 newTile.gameObject.name = string.Format("Tile({0},{1})", x, y);
                 newTile.color = (x + y) % 2 == 0 ? activeLightColor : activeDarkColor;
+                
                 tileMap[x,y] = newTile;
             }
         }
