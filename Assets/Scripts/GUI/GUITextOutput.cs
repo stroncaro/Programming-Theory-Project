@@ -12,13 +12,15 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake() => Initialize();
+
+    private void Initialize()
     {
         _output = new TextMeshPro[10, 10];
 
         for (int x = 0; x < _output.GetLength(0); x++)
         {
-            for (int y = 0; y <_output.GetLength(1); y++)
+            for (int y = 0; y < _output.GetLength(1); y++)
             {
                 var newObj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
                 newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
