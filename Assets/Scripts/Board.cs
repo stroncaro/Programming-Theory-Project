@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] private Tile tilePrefab;
+
     // Start is called before the first frame update
     void Start()
     {
