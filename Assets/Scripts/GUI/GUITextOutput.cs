@@ -7,6 +7,10 @@ public class GUITextOutput : MonoBehaviour
 {
     private TextMeshPro[,] _output;
 
+    [SerializeField] private float _cellWidth = 0.5f;
+    [SerializeField] private float _fontSize = 6;
+    [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,17 +20,20 @@ public class GUITextOutput : MonoBehaviour
         {
             for (int y = 0; y <_output.GetLength(1); y++)
             {
-                var obj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
-                obj.transform.position = new Vector2(x, y);
-                obj.transform.SetParent(transform);
+                var newObj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
+                newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
+                newObj.transform.SetParent(transform);
 
-                obj.AddComponent<TextMeshPro>();
-                var tmp = obj.GetComponent<TextMeshPro>();
-                
-                tmp.text = "<mspace=1>_</mspace>";
-                tmp.fontSize = 6;
-                tmp.alignment = TextAlignmentOptions.Center;
-                _output[x, y] = tmp;
+                newObj.AddComponent<TextMeshPro>();
+                var newObjTMPro = newObj.GetComponent<TextMeshPro>();
+                newObjTMPro.text = "<mspace=1>_</mspace>";
+                newObjTMPro.fontSize = _fontSize;
+                newObjTMPro.alignment = _alignment;
+
+                var newObjRectTransform = newObj.GetComponent<RectTransform>();
+                newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
+
+                _output[x, y] = newObjTMPro;
             }
         }
     }
