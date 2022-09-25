@@ -17,6 +17,7 @@ public class GameData : MonoBehaviour
             return;
         }
 
+        Instance = this;
         board = new Board((int)_boardSize.x, (int)_boardSize.y);
     }
 
