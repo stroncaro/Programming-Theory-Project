@@ -15,6 +15,7 @@ public class GUITextOutput : MonoBehaviour
 
     [SerializeField] private Color _activeTileColor = Color.white;
     [SerializeField] private Color _inactiveTileColor = Color.black;
+    [SerializeField] private string _trapSymbol = "X";
 
     private void Initialize()
     {
@@ -34,7 +35,6 @@ public class GUITextOutput : MonoBehaviour
                 newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
                 newObjTMPro.enableWordWrapping = _enableTextWrapping;
-                newObjTMPro.text = "_"; //temporary
 
                 var newObjRectTransform = newObj.GetComponent<RectTransform>();
                 newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
@@ -56,7 +56,20 @@ public class GUITextOutput : MonoBehaviour
                 var thisTile = board.tiles[x, y];
                 var thisTMPro = _output[x, y];
                 thisTMPro.color = thisTile.isActive ? _activeTileColor : _inactiveTileColor;
-                thisTMPro.text = thisTile.hasEntities ? string.Format("{0}", thisTile.entityIds[0]) : "_";
+
+                string text = "_";
+                if (thisTile.hasEntities)
+                {
+                    int thisEntityId = thisTile.entityIds[0];
+                    var thisEntity = GameData.Instance.entities.Find(entity => entity.id == thisEntityId);
+                    switch (thisEntity.type)
+                    {
+                        case "trap":
+                            text = _trapSymbol;
+                            break;
+                    }
+                }
+                thisTMPro.text = text;
             }
         }
     }

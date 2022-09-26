@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Entity
+public abstract class Entity
 {
     private static class EntityIDGenerator
     {
@@ -19,6 +19,9 @@ public class Entity
     protected readonly string _name;
     public string name { get => _name; }
 
+    protected readonly string _type;
+    public string type { get => _type; }
+
     protected int _x, _y;
     public int x { get => _x; }
     public int y { get => _y; }
@@ -30,10 +33,13 @@ public class Entity
         _name = name;
         _x = x;
         _y = y;
+        _type = SetType();
 
         GameData.Instance.board.tiles[_x, _y].entityIds.Add(_id);
         GameData.Instance.entities.Add(this);
     }
+
+    protected abstract string SetType();
 
     public void Kill()
     {

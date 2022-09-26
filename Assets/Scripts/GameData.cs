@@ -47,7 +47,7 @@ public class GameData : MonoBehaviour
                     }
                     else
                     {
-                        var newEntity = new Entity("name", x, y);
+                        var newEntity = new Trap("name", x, y);
                     }
                     break;
                 case 1:
