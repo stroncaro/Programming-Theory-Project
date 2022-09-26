@@ -1,9 +1,9 @@
 public class Avatar : Entity
 {
-    private BoardDirection _facing;
-    public BoardDirection facing { get => _facing; }
+    private Board.Direction _facing;
+    public Board.Direction facing { get => _facing; }
 
-    public Avatar(string name, int x, int y, BoardDirection facing) : base(name, x, y)
+    public Avatar(string name, int x, int y, Board.Direction facing) : base(name, x, y)
     {
         _facing = facing;
     }

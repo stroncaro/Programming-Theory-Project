@@ -1,7 +1,7 @@
-public enum BoardDirection { UP, RIGHT, DOWN, LEFT }
-
 public class Board
 {
+    public enum Direction { UP, RIGHT, DOWN, LEFT }
+
     //number of rows and files determine size of board
     private int _rows, _files;
     public int rows { get => _rows; }

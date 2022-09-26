@@ -55,20 +55,20 @@ public class GameData : MonoBehaviour
                                 break;
                             case 1:
                                 int d4 = Random.Range(0, 4);
-                                BoardDirection initDir;
+                                Board.Direction initDir;
                                 switch (d4)
                                 {
                                     case 0:
-                                        initDir = BoardDirection.UP;
+                                        initDir = Board.Direction.UP;
                                         break;
                                     case 1:
-                                        initDir = BoardDirection.RIGHT;
+                                        initDir = Board.Direction.RIGHT;
                                         break;
                                     case 2:
-                                        initDir = BoardDirection.DOWN;
+                                        initDir = Board.Direction.DOWN;
                                         break;
                                     default:
-                                        initDir = BoardDirection.LEFT;
+                                        initDir = Board.Direction.LEFT;
                                         break;
                                 }
                                 new Avatar("name", x, y, initDir);
