@@ -18,16 +18,16 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private Color _inactiveTileColor = Color.black;
     [SerializeField] private string _trapSymbol = "X";
 
-    private Dictionary<Board.Direction, string> _avatarSymbols;
+    private Dictionary<Board.Direction, string> _avatarDirectionSymbol;
 
     private void Initialize()
     {
         _output = new TextMeshPro[GameData.Instance.board.rows, GameData.Instance.board.files];
-        _avatarSymbols = new Dictionary<Board.Direction, string>();
-        _avatarSymbols[Board.Direction.RIGHT] = "\u02C3";
-        _avatarSymbols[Board.Direction.LEFT] = "\u02C2";
-        _avatarSymbols[Board.Direction.UP] = "\u02C4";
-        _avatarSymbols[Board.Direction.DOWN] = "\u02C5";
+        _avatarDirectionSymbol = new Dictionary<Board.Direction, string>();
+        _avatarDirectionSymbol[Board.Direction.RIGHT] = "\u02C3";
+        _avatarDirectionSymbol[Board.Direction.LEFT] = "\u02C2";
+        _avatarDirectionSymbol[Board.Direction.UP] = "\u02C4";
+        _avatarDirectionSymbol[Board.Direction.DOWN] = "\u02C5";
 
         for (int x = 0; x < _output.GetLength(0); x++)
         {
@@ -77,7 +77,7 @@ public class GUITextOutput : MonoBehaviour
                             break;
                         case "avatar":
                             //var avatar = thisEntity as Avatar;
-                            text = _avatarSymbols[(thisEntity as Avatar).facing];
+                            text = _avatarDirectionSymbol[(thisEntity as Avatar).direction];
                             break;
                     }
                 }

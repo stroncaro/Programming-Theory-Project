@@ -1,11 +1,11 @@
 public class Avatar : Entity
 {
-    private Board.Direction _facing;
-    public Board.Direction facing { get => _facing; }
+    private Board.Direction _direction;
+    public Board.Direction direction { get => _direction; }
 
-    public Avatar(string name, int x, int y, Board.Direction facing) : base(name, x, y)
+    public Avatar(string name, int x, int y, Board.Direction direction) : base(name, x, y)
     {
-        _facing = facing;
+        _direction = direction;
     }
 
     protected override string SetType() => "avatar";
