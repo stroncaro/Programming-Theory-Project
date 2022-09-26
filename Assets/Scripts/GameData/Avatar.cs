@@ -1,5 +1,3 @@
-using System;
-
 public class Avatar : Entity
 {
     private Board.Direction _direction;

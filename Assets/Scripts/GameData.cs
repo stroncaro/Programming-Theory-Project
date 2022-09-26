@@ -24,7 +24,7 @@ public class GameData : MonoBehaviour
         Instance = this;
         _board = new Board((int)_boardSize.x, (int)_boardSize.y);
 
-        StartCoroutine(RandomizeBoardContent());
+        //StartCoroutine(RandomizeBoardContent());
     }
 
     IEnumerator RandomizeBoardContent()
