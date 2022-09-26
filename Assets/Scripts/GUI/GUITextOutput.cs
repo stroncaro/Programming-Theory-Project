@@ -42,7 +42,7 @@ public class GUITextOutput : MonoBehaviour
         }
     }
 
-    void Awake() => Initialize();
+    void Start() => Initialize();
 
     private void UpdateOutput()
     {
