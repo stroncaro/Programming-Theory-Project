@@ -51,15 +51,9 @@ public class GUITextOutput : MonoBehaviour
         {
             for (int y = 0; y < board.files; y++)
             {
-                switch (board.tiles[x, y].isActive)
-                {
-                    case true:
-                        _output[x, y].color = _activeTileColor;
-                        break;
-                    case false:
-                        _output[x, y].color = _inactiveTileColor;
-                        break;
-                }
+                var thisTMPro = _output[x, y];
+                thisTMPro.color = board.tiles[x, y].isActive ? _activeTileColor : _inactiveTileColor;
+                thisTMPro.text = board.tiles[x, y].entityIds.Count > 0 ? "X" : "_";
             }
         }
     }

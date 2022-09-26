@@ -34,7 +34,17 @@ public class GameData : MonoBehaviour
         {
             int x = Random.Range(0, _board.rows);
             int y = Random.Range(0, _board.files);
-            _board.tiles[x, y].isActive = !_board.tiles[x, y].isActive;
+            int d2 = _board.tiles[x, y].entityIds.Count > 0 ? 1 : Random.Range(0, 2);
+            switch (d2)
+            {
+                case 0:
+                    var newEntity = new Entity("name", x, y);
+                    break;
+                case 1:
+                    _board.tiles[x, y].isActive = !_board.tiles[x, y].isActive;
+                    break;
+            }
+            
             yield return delay;
         }
     }
