@@ -7,7 +7,11 @@ public class GameData : MonoBehaviour
     public static GameData Instance;
 
     [SerializeField] private Vector2 _boardSize;
-    public Board board { get; private set; }
+    private Board _board;
+    public Board board { get => _board; }
+
+    private List<Entity> _entities = new List<Entity>();
+    public List<Entity> entities { get => _entities; }
 
     void Initialize()
     {
@@ -18,7 +22,7 @@ public class GameData : MonoBehaviour
         }
 
         Instance = this;
-        board = new Board((int)_boardSize.x, (int)_boardSize.y);
+        _board = new Board((int)_boardSize.x, (int)_boardSize.y);
 
         StartCoroutine(RandomizeBoardContent());
     }
@@ -28,9 +32,9 @@ public class GameData : MonoBehaviour
         var delay = new WaitForSeconds(0.1f);
         while (true)
         {
-            int x = Random.Range(0, board.rows);
-            int y = Random.Range(0, board.files);
-            board.tiles[x, y].isActive = !board.tiles[x, y].isActive;
+            int x = Random.Range(0, _board.rows);
+            int y = Random.Range(0, _board.files);
+            _board.tiles[x, y].isActive = !_board.tiles[x, y].isActive;
             yield return delay;
         }
     }
