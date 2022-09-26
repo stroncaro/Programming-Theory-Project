@@ -1,6 +1,16 @@
+using System;
+
 public class Board
 {
     public enum Direction { UP, RIGHT, DOWN, LEFT }
+
+    public static Direction Rotation(Direction origin, int steps)
+    {
+        int newDirInt = (int)origin;
+        newDirInt += steps;
+        newDirInt %= Enum.GetNames(typeof(Direction)).Length;
+        return (Direction)newDirInt;
+    }
 
     //number of rows and files determine size of board
     private int _rows, _files;
