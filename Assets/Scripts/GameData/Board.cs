@@ -1,3 +1,5 @@
+public enum BoardDirection { UP, RIGHT, DOWN, LEFT }
+
 public class Board
 {
     //number of rows and files determine size of board
