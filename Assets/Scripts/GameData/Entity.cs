@@ -13,13 +13,13 @@ public class Entity
         }
     }
 
-    private readonly int _id;
+    protected readonly int _id;
     public int id { get => _id; }
 
-    private readonly string _name;
+    protected readonly string _name;
     public string name { get => _name; }
 
-    private int _x, _y;
+    protected int _x, _y;
     public int x { get => _x; }
     public int y { get => _y; }
     public Vector2 position { get => new Vector2(_x, _y); }
