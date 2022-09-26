@@ -10,6 +10,7 @@ public class Tile
 
     private List<int> _entityIds = new List<int>();
     public List<int> entityIds { get => _entityIds; }
+    public bool hasEntities { get => _entityIds.Count > 0; }
 
     public Tile(bool active = true)
     {

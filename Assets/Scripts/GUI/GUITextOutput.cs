@@ -11,6 +11,7 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private float _fontSize = 6;
     [SerializeField] private FontStyles _fontStyle;
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
+    [SerializeField] private bool _enableTextWrapping = false;
 
     [SerializeField] private Color _activeTileColor = Color.white;
     [SerializeField] private Color _inactiveTileColor = Color.black;
@@ -32,6 +33,7 @@ public class GUITextOutput : MonoBehaviour
                 newObjTMPro.fontSize = _fontSize;
                 newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
+                newObjTMPro.enableWordWrapping = _enableTextWrapping;
                 newObjTMPro.text = "_"; //temporary
 
                 var newObjRectTransform = newObj.GetComponent<RectTransform>();
@@ -51,9 +53,10 @@ public class GUITextOutput : MonoBehaviour
         {
             for (int y = 0; y < board.files; y++)
             {
+                var thisTile = board.tiles[x, y];
                 var thisTMPro = _output[x, y];
-                thisTMPro.color = board.tiles[x, y].isActive ? _activeTileColor : _inactiveTileColor;
-                thisTMPro.text = board.tiles[x, y].entityIds.Count > 0 ? "X" : "_";
+                thisTMPro.color = thisTile.isActive ? _activeTileColor : _inactiveTileColor;
+                thisTMPro.text = thisTile.hasEntities ? string.Format("{0}", thisTile.entityIds[0]) : "_";
             }
         }
     }
