@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class Board
 {
@@ -6,9 +7,9 @@ public class Board
 
     public static Direction Rotation(Direction origin, int steps)
     {
-        int newDirInt = (int)origin;
-        newDirInt += steps;
-        newDirInt %= Enum.GetNames(typeof(Direction)).Length;
+        int cap = Enum.GetNames(typeof(Direction)).Length;
+        int newDirInt = ((int)origin + steps) % cap;
+        if (newDirInt < 0) { newDirInt += cap; }
         return (Direction)newDirInt;
     }
 
