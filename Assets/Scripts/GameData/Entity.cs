@@ -30,5 +30,7 @@ public class Entity
         _name = name;
         _x = x;
         _y = y;
+
+        GameData.Instance.board.tiles[x, y].entityIds.Add(_id);
     }
 }
