@@ -39,6 +39,7 @@ public class GameData : MonoBehaviour
             {
                 case 0:
                     var newEntity = new Entity("name", x, y);
+                    _entities.Add(newEntity);
                     break;
                 case 1:
                     _board.tiles[x, y].isActive = !_board.tiles[x, y].isActive;
