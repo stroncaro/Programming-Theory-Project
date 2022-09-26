@@ -20,6 +20,10 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q)) { avatar.RotateCounterclockwise(); }
             if (Input.GetKeyDown(KeyCode.E)) { avatar.RotateClockwise(); }
+            if (Input.GetKeyDown(KeyCode.W)) { avatar.MoveForward(); }
+            if (Input.GetKeyDown(KeyCode.A)) { avatar.MoveLeft(); }
+            if (Input.GetKeyDown(KeyCode.S)) { avatar.MoveBack(); }
+            if (Input.GetKeyDown(KeyCode.D)) { avatar.MoveRight(); }
         }
     }
 }
