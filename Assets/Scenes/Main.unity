@@ -255,6 +255,19 @@ MonoBehaviour:
   _fontSize: 6
   _fontStyle: 1
   _alignment: 4098
+  _enableTextWrapping: 0
+  _activeTileColor: {r: 1, g: 1, b: 1, a: 1}
+  _inactiveTileColor: {r: 0, g: 0, b: 0, a: 1}
+  _trapSymbol: X
+  _avatarSymbolList:
+  - direction: 0
+    symbol: \u1403
+  - direction: 1
+    symbol: \u1405
+  - direction: 2
+    symbol: \u1401
+  - direction: 3
+    symbol: \u140A
 --- !u!1 &1050626454
 GameObject:
   m_ObjectHideFlags: 0

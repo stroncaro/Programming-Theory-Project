@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,9 +18,16 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private Color _inactiveTileColor = Color.black;
     [SerializeField] private string _trapSymbol = "X";
 
+    private Dictionary<BoardDirection, string> _avatarSymbols;
+
     private void Initialize()
     {
         _output = new TextMeshPro[GameData.Instance.board.rows, GameData.Instance.board.files];
+        _avatarSymbols = new Dictionary<BoardDirection, string>();
+        _avatarSymbols[BoardDirection.RIGHT] = "\u02C3";
+        _avatarSymbols[BoardDirection.LEFT] = "\u02C2";
+        _avatarSymbols[BoardDirection.UP] = "\u02C4";
+        _avatarSymbols[BoardDirection.DOWN] = "\u02C5";
 
         for (int x = 0; x < _output.GetLength(0); x++)
         {
@@ -66,6 +74,10 @@ public class GUITextOutput : MonoBehaviour
                     {
                         case "trap":
                             text = _trapSymbol;
+                            break;
+                        case "avatar":
+                            //var avatar = thisEntity as Avatar;
+                            text = _avatarSymbols[(thisEntity as Avatar).facing];
                             break;
                     }
                 }

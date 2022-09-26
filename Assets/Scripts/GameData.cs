@@ -47,7 +47,33 @@ public class GameData : MonoBehaviour
                     }
                     else
                     {
-                        var newEntity = new Trap("name", x, y);
+                        int newD2 = Random.Range(0, 2);
+                        switch (newD2)
+                        {
+                            case 0:
+                                new Trap("name", x, y);
+                                break;
+                            case 1:
+                                int d4 = Random.Range(0, 4);
+                                BoardDirection initDir;
+                                switch (d4)
+                                {
+                                    case 0:
+                                        initDir = BoardDirection.UP;
+                                        break;
+                                    case 1:
+                                        initDir = BoardDirection.RIGHT;
+                                        break;
+                                    case 2:
+                                        initDir = BoardDirection.DOWN;
+                                        break;
+                                    default:
+                                        initDir = BoardDirection.LEFT;
+                                        break;
+                                }
+                                new Avatar("name", x, y, initDir);
+                                break;
+                        }
                     }
                     break;
                 case 1:
