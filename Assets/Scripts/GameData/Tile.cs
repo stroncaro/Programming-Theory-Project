@@ -9,7 +9,7 @@ public class Tile
     public void Deactivate() { if (_active) { _active = false; } }
 
     private List<int> _entityIds = new List<int>();
-    public List<int> entityIds { get; set; }
+    public List<int> entityIds { get => _entityIds; }
 
     public Tile(bool active = true)
     {
