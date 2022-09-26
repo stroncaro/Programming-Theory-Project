@@ -12,9 +12,12 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private FontStyles _fontStyle;
     [SerializeField] private TextAlignmentOptions _alignment = TextAlignmentOptions.Center;
 
+    [SerializeField] private Color _activeTileColor = Color.white;
+    [SerializeField] private Color _inactiveTileColor = Color.black;
+
     private void Initialize()
     {
-        _output = new TextMeshPro[GameData.Instance.board.xWidth, GameData.Instance.board.yWidth];
+        _output = new TextMeshPro[GameData.Instance.board.rows, GameData.Instance.board.files];
 
         for (int x = 0; x < _output.GetLength(0); x++)
         {
@@ -29,6 +32,7 @@ public class GUITextOutput : MonoBehaviour
                 newObjTMPro.fontSize = _fontSize;
                 newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
+                newObjTMPro.text = "_"; //temporary
 
                 var newObjRectTransform = newObj.GetComponent<RectTransform>();
                 newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
@@ -43,17 +47,17 @@ public class GUITextOutput : MonoBehaviour
     private void UpdateOutput()
     {
         var board = GameData.Instance.board;
-        for (int x = 0; x < board.xWidth; x++)
+        for (int x = 0; x < board.rows; x++)
         {
-            for (int y = 0; y < board.yWidth; y++)
+            for (int y = 0; y < board.files; y++)
             {
-                switch (board.contents[x, y])
+                switch (board.tiles[x, y].isActive)
                 {
                     case true:
-                        _output[x, y].text = "X";
+                        _output[x, y].color = _activeTileColor;
                         break;
                     case false:
-                        _output[x, y].text = "_";
+                        _output[x, y].color = _inactiveTileColor;
                         break;
                 }
             }

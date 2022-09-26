@@ -28,9 +28,9 @@ public class GameData : MonoBehaviour
         var delay = new WaitForSeconds(0.1f);
         while (true)
         {
-            int x = Random.Range(0, board.xWidth);
-            int y = Random.Range(0, board.yWidth);
-            board.contents[x, y] = !board.contents[x, y];
+            int x = Random.Range(0, board.rows);
+            int y = Random.Range(0, board.files);
+            board.tiles[x, y].isActive = !board.tiles[x, y].isActive;
             yield return delay;
         }
     }
