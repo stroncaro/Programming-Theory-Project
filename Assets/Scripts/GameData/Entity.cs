@@ -32,5 +32,6 @@ public class Entity
         _y = y;
 
         GameData.Instance.board.tiles[x, y].entityIds.Add(_id);
+        GameData.Instance.entities.Add(this);
     }
 }
