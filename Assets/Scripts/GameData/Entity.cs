@@ -35,15 +35,23 @@ public abstract class Entity
         _y = y;
         _type = SetType();
 
-        GameData.Instance.board.tiles[_x, _y].entityIds.Add(_id);
-        GameData.Instance.entities.Add(this);
+        RegisterInTile();
+        RegisterEntity();
     }
+
+    protected void RegisterInTile(int x, int y) => GameData.Instance.board.tiles[x, y].entityIds.Add(_id);
+    protected void RegisterInTile() => RegisterInTile(_x, _y);
+    protected void UnregisterFromTile(int x, int y) => GameData.Instance.board.tiles[x, y].entityIds.Remove(_id);
+    protected void UnregisterFromTile() => UnregisterFromTile(_x, _y);
+
+    protected void RegisterEntity() => GameData.Instance.entities.Add(this);
+    protected void UnregisterEntity() => GameData.Instance.entities.Remove(this);
 
     protected abstract string SetType();
 
     public void Kill()
     {
-        GameData.Instance.board.tiles[_x, _y].entityIds.Remove(_id);
-        GameData.Instance.entities.Remove(this);
+        UnregisterFromTile();
+        UnregisterEntity();
     }
 }

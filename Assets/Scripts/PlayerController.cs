@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
         avatar = new Avatar("player", (int)startPos.x, (int)startPos.y, startDirection);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.anyKeyDown)
