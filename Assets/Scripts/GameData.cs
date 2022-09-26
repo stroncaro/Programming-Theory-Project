@@ -34,14 +34,24 @@ public class GameData : MonoBehaviour
         {
             int x = Random.Range(0, _board.rows);
             int y = Random.Range(0, _board.files);
-            int d2 = _board.tiles[x, y].entityIds.Count > 0 ? 1 : Random.Range(0, 2);
+            var thisTile = _board.tiles[x, y];
+            int d2 = Random.Range(0, 2);
             switch (d2)
             {
                 case 0:
-                    var newEntity = new Entity("name", x, y);
+                    if (thisTile.hasEntities)
+                    {
+                        int id = thisTile.entityIds[0];
+                        var thisEntity = _entities.Find(entity => entity.id == id);
+                        thisEntity.Kill();
+                    }
+                    else
+                    {
+                        var newEntity = new Entity("name", x, y);
+                    }
                     break;
                 case 1:
-                    _board.tiles[x, y].isActive = !_board.tiles[x, y].isActive;
+                    thisTile.isActive = !thisTile.isActive;
                     break;
             }
             

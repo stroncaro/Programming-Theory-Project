@@ -31,7 +31,13 @@ public class Entity
         _x = x;
         _y = y;
 
-        GameData.Instance.board.tiles[x, y].entityIds.Add(_id);
+        GameData.Instance.board.tiles[_x, _y].entityIds.Add(_id);
         GameData.Instance.entities.Add(this);
+    }
+
+    public void Kill()
+    {
+        GameData.Instance.board.tiles[_x, _y].entityIds.Remove(_id);
+        GameData.Instance.entities.Remove(this);
     }
 }
