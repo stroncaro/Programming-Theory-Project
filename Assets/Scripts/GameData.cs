@@ -41,8 +41,7 @@ public class GameData : MonoBehaviour
                 case 0:
                     if (thisTile.hasEntities)
                     {
-                        int id = thisTile.entityIds[0];
-                        var thisEntity = _entities.Find(entity => entity.id == id);
+                        var thisEntity = thisTile.GetEntity();
                         thisEntity.Kill();
                     }
                     else

@@ -68,8 +68,7 @@ public class GUITextOutput : MonoBehaviour
                 string text = "_";
                 if (thisTile.hasEntities)
                 {
-                    int thisEntityId = thisTile.entityIds[0];
-                    var thisEntity = GameData.Instance.entities.Find(entity => entity.id == thisEntityId);
+                    var thisEntity = thisTile.GetEntity();
                     switch (thisEntity.type)
                     {
                         case "trap":

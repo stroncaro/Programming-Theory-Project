@@ -39,9 +39,9 @@ public abstract class Entity
         RegisterEntity();
     }
 
-    protected void RegisterInTile(int x, int y) => GameData.Instance.board.tiles[x, y].entityIds.Add(_id);
+    protected void RegisterInTile(int x, int y) => GameData.Instance.board.tiles[x, y].RegisterEntity(_id);
     protected void RegisterInTile() => RegisterInTile(_x, _y);
-    protected void UnregisterFromTile(int x, int y) => GameData.Instance.board.tiles[x, y].entityIds.Remove(_id);
+    protected void UnregisterFromTile(int x, int y) => GameData.Instance.board.tiles[x, y].UnregisterEntity(_id);
     protected void UnregisterFromTile() => UnregisterFromTile(_x, _y);
 
     protected void RegisterEntity() => GameData.Instance.entities.Add(this);
