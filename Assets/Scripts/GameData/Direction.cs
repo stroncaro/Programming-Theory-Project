@@ -24,9 +24,8 @@ public static class Direction
         {
             int min = minInclusive;
             int max = maxExclusive;
-
             n = (n - min) % (max - min) + min;
-            if (n < min) n += min;
+            if (n < min) n += (max - min);
         }
 
         return n;
