@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class Board
 {
     //number of rows and files determine size of board
@@ -7,7 +9,9 @@ public class Board
     
     //in each coordinate there is a tile
     private Tile[,] _tiles;
-    public Tile[,] tiles { get => _tiles; }
+
+    public Tile GetTile(int x, int y) => _tiles[x, y];
+    public Tile GetTile(Vector2 coordinates) => GetTile((int)coordinates.x, (int)coordinates.y);
 
     public Board(int rows, int files)
     {

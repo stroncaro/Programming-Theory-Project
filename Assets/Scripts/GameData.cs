@@ -34,7 +34,7 @@ public class GameData : MonoBehaviour
         {
             int x = Random.Range(0, _board.rows);
             int y = Random.Range(0, _board.files);
-            var thisTile = _board.tiles[x, y];
+            var thisTile = _board.GetTile(x, y);
             int d2 = Random.Range(0, 2);
             switch (d2)
             {

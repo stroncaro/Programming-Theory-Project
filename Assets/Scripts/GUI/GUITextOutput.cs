@@ -61,7 +61,7 @@ public class GUITextOutput : MonoBehaviour
         {
             for (int y = 0; y < board.files; y++)
             {
-                var thisTile = board.tiles[x, y];
+                var thisTile = board.GetTile(x, y);
                 var thisTMPro = _output[x, y];
                 thisTMPro.color = thisTile.isActive ? _activeTileColor : _inactiveTileColor;
 
