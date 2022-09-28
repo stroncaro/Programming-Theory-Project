@@ -14,7 +14,7 @@ public class Tile
 
     public bool hasEntities { get => _entityIds.Count > 0; }
     public bool ContainsEntity(int id) => _entityIds.Contains(id);
-    public Entity GetEntity(int i = 0) => GameData.Instance.entities.Find(entity => entity.id == _entityIds[i]);
+    public Entity GetEntity(int i = 0) => GameData.GetEntityById(_entityIds[i]);
     public Entity[] GetEntities()
     {
         Entity[] entities = new Entity[_entityIds.Count];

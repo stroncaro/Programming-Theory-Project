@@ -44,8 +44,8 @@ public abstract class Entity
     protected void UnregisterFromTile(int x, int y) => GameData.Instance.board.GetTile(x, y).UnregisterEntity(_id);
     protected void UnregisterFromTile() => UnregisterFromTile(_x, _y);
 
-    protected void RegisterEntity() => GameData.Instance.entities.Add(this);
-    protected void UnregisterEntity() => GameData.Instance.entities.Remove(this);
+    protected void RegisterEntity() => GameData.AddEntity(this);
+    protected void UnregisterEntity() => GameData.RemoveEntity(this);
 
     protected abstract string SetType();
 

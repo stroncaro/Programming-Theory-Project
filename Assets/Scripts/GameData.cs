@@ -11,7 +11,9 @@ public class GameData : MonoBehaviour
     public Board board { get => _board; }
 
     private List<Entity> _entities = new List<Entity>();
-    public List<Entity> entities { get => _entities; }
+    public static void AddEntity(Entity entity) => Instance._entities.Add(entity);
+    public static void RemoveEntity(Entity entity) => Instance._entities.Remove(entity);
+    public static Entity GetEntityById(int id) => Instance._entities.Find(entity => entity.id == id);
 
     void Initialize()
     {
