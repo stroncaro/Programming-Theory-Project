@@ -18,20 +18,22 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private Color _inactiveTileColor = Color.black;
     [SerializeField] private string _trapSymbol = "X";
 
-    private Dictionary<Direction.World, string> _avatarDirectionSymbol;
+    private Dictionary<Direction.World, string> _avatarDirectionSymbol = new Dictionary<Direction.World, string>
+    {
+        { Direction.World.NORTH , "\u02C4" },
+        { Direction.World.EAST , "\u02C3" },
+        { Direction.World.SOUTH , "\u02C5" },
+        { Direction.World.WEST , "\u02C2" }
+    };
 
     private void Initialize()
     {
-        _output = new TextMeshPro[GameData.GetBoard().rows, GameData.GetBoard().files];
-        _avatarDirectionSymbol = new Dictionary<Direction.World, string>();
-        _avatarDirectionSymbol[Direction.World.EAST] = "\u02C3";
-        _avatarDirectionSymbol[Direction.World.WEST] = "\u02C2";
-        _avatarDirectionSymbol[Direction.World.NORTH] = "\u02C4";
-        _avatarDirectionSymbol[Direction.World.SOUTH] = "\u02C5";
+        var board = GameData.GetBoard();
+        _output = new TextMeshPro[board.rows, board.files];
 
-        for (int x = 0; x < _output.GetLength(0); x++)
+        for (int x = 0; x < board.rows; x++)
         {
-            for (int y = 0; y < _output.GetLength(1); y++)
+            for (int y = 0; y < board.files; y++)
             {
                 var newObj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
                 newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
@@ -75,7 +77,6 @@ public class GUITextOutput : MonoBehaviour
                             text = _trapSymbol;
                             break;
                         case "avatar":
-                            //var avatar = thisEntity as Avatar;
                             text = _avatarDirectionSymbol[(thisEntity as Avatar).facingDirection];
                             break;
                     }
