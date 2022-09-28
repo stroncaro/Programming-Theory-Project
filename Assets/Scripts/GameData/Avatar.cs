@@ -19,13 +19,9 @@ public class Avatar : Entity
         int newX = _x + (int)movement.x;
         int newY = _y + (int)movement.y;
 
-        //check board bounds
-        int boardX = GameData.GetBoard().rows;
-        int boardY = GameData.GetBoard().files;
-        newX = newX >= boardX ? boardX - 1 : newX;
-        newX = newX < 0 ? 0 : newX;
-        newY = newY >= boardY ? boardY -1 : newY;
-        newY = newY < 0 ? 0 : newY;
+        //clamp position between board bounds
+        newX = Mathf.Clamp(newX, 0, GameData.GetBoard().rows - 1);
+        newY = Mathf.Clamp(newY, 0, GameData.GetBoard().files - 1);
 
         UnregisterFromTile();
         _x = newX;
