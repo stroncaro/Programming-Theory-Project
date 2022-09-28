@@ -21,11 +21,21 @@ public abstract class Entity
 
     protected readonly string _type;
     public string type { get => _type; }
+    protected abstract string SetType();
 
     protected int _x, _y;
     public int x { get => _x; }
     public int y { get => _y; }
     public Vector2 position { get => new Vector2(_x, _y); }
+    public void SetPosition(Vector2 position)
+    {
+        int newX = (int)position.x;
+        int newY = (int)position.y;
+        int maxX = GameData.GetBoard().rows - 1;
+        int maxY = GameData.GetBoard().files - 1;
+        _x = Mathf.Clamp(newX, 0, maxX);
+        _y = Mathf.Clamp(newY, 0, maxY);
+    }
 
     public Entity(string name, int x = 0, int y = 0)
     {
@@ -46,8 +56,6 @@ public abstract class Entity
 
     protected void RegisterEntity() => GameData.AddEntity(this);
     protected void UnregisterEntity() => GameData.RemoveEntity(this);
-
-    protected abstract string SetType();
 
     public void Kill()
     {

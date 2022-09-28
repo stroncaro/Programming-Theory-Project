@@ -18,6 +18,7 @@ public static class Direction
 
     private static int _Wrap(int n, int minInclusive, int maxExclusive)
     {
+        //wrap values between min and max, overflow if value goes above or below
         bool condition = n >= minInclusive && n < maxExclusive;
 
         if (!condition)
