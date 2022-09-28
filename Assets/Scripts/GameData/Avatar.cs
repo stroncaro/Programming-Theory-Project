@@ -16,8 +16,8 @@ public class Avatar : Entity
     public void Move(Direction.World dir, int steps = 1)
     {
         Vector2 movement = Direction.WorldToVector2[dir] * steps;
-        int newX = _x += (int)movement.x;
-        int newY = _y += (int)movement.y;
+        int newX = _x + (int)movement.x;
+        int newY = _y + (int)movement.y;
 
         //TODO check board bounds here
 
