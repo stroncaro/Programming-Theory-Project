@@ -20,9 +20,11 @@ public class Avatar : Entity
         int newY = _y + (int)movement.y;
 
         //check board bounds
-        newX = newX >= GameData.Instance.board.rows ? GameData.Instance.board.rows -1 : newX;
+        int boardX = GameData.GetBoard().rows;
+        int boardY = GameData.GetBoard().files;
+        newX = newX >= boardX ? boardX - 1 : newX;
         newX = newX < 0 ? 0 : newX;
-        newY = newY >= GameData.Instance.board.files ? GameData.Instance.board.rows -1 : newY;
+        newY = newY >= boardY ? boardY -1 : newY;
         newY = newY < 0 ? 0 : newY;
 
         UnregisterFromTile();

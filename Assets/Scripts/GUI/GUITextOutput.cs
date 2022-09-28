@@ -22,7 +22,7 @@ public class GUITextOutput : MonoBehaviour
 
     private void Initialize()
     {
-        _output = new TextMeshPro[GameData.Instance.board.rows, GameData.Instance.board.files];
+        _output = new TextMeshPro[GameData.GetBoard().rows, GameData.GetBoard().files];
         _avatarDirectionSymbol = new Dictionary<Direction.World, string>();
         _avatarDirectionSymbol[Direction.World.EAST] = "\u02C3";
         _avatarDirectionSymbol[Direction.World.WEST] = "\u02C2";
@@ -56,7 +56,7 @@ public class GUITextOutput : MonoBehaviour
 
     private void UpdateOutput()
     {
-        var board = GameData.Instance.board;
+        var board = GameData.GetBoard();
         for (int x = 0; x < board.rows; x++)
         {
             for (int y = 0; y < board.files; y++)

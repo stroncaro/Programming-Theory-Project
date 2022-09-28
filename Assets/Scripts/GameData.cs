@@ -8,7 +8,7 @@ public class GameData : MonoBehaviour
 
     [SerializeField] private Vector2 _boardSize;
     private Board _board;
-    public Board board { get => _board; }
+    public static Board GetBoard() => Instance._board;
 
     private List<Entity> _entities = new List<Entity>();
     public static void AddEntity(Entity entity) => Instance._entities.Add(entity);
