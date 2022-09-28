@@ -26,15 +26,29 @@ public static class Direction
     {
         int a = (int)dir;
         int b = (int)facingDirection;
-        int val = _Wrap(a + b, Count);
-        return (World)val;
+        int newDir = _Wrap(a + b, Count);
+        return (World)newDir;
     }
         
     public static Relative toRelative(this World dir, World facingDirection)
     {
         int a = (int)dir;
         int b = (int)facingDirection;
-        int val = _Wrap(a - b, Count);
-        return (Relative)val;
+        int newDir = _Wrap(a - b, Count);
+        return (Relative)newDir;
+    }
+
+    public static World Rotate(this World origin, int steps)
+    {
+        int a = (int)origin;
+        int newDir = _Wrap(a + steps, Count);
+        return (World)newDir;
+    }
+
+    public static Relative Rotate(this Relative origin, int steps)
+    {
+        int a = (int)origin;
+        int newDir = _Wrap(a + steps, Count);
+        return (Relative)newDir;
     }
 }
