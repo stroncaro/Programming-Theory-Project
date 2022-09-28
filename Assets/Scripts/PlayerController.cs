@@ -24,6 +24,12 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.A)) { avatar.MoveLeft(); }
             if (Input.GetKeyDown(KeyCode.S)) { avatar.MoveBack(); }
             if (Input.GetKeyDown(KeyCode.D)) { avatar.MoveRight(); }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Vector2 trapDirection = avatar.forwardVector;
+                Vector2 trapPos = avatar.position + trapDirection;
+                new Trap("playerTrap", (int)trapPos.x, (int)trapPos.y);
+            }
         }
     }
 }
