@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Avatar : Entity
 {
+    protected override string SetType() => "avatar";
+
     private Direction.World _facingDir;
     public Direction.World facingDirection { get => _facingDir; }
 
@@ -9,6 +11,11 @@ public class Avatar : Entity
     public Direction.World back { get => Direction.Relative.BACK.toWorld(_facingDir); }
     public Direction.World right { get => Direction.Relative.RIGHT.toWorld(_facingDir); }
     public Direction.World left { get => Direction.Relative.LEFT.toWorld(_facingDir); }
+    public Vector2 forwardVector { get => Direction.WorldToVector2[forward]; }
+    public Vector2 rightVector { get => Direction.WorldToVector2[right]; }
+    public Vector2 backVector { get => Direction.WorldToVector2[back]; }
+    public Vector2 leftVector { get => Direction.WorldToVector2[left]; }
+
     public bool IsFacing(Direction.World dir) => dir == _facingDir;
     public void RotateClockwise(int times = 1) => _facingDir = _facingDir.Rotate(times);
     public void RotateCounterclockwise(int times = 1) => _facingDir = _facingDir.Rotate(-times);
@@ -42,6 +49,4 @@ public class Avatar : Entity
     {
         _facingDir = facingDirection;
     }
-
-    protected override string SetType() => "avatar";
 }
