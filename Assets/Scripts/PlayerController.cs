@@ -6,12 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     private Avatar avatar;
     [SerializeField] private Vector2 startPos;
-    [SerializeField] private Board.Direction startDirection;
+    [SerializeField] private Direction.World facingDirection;
 
     void Start()
     {
         //create an avatar
-        avatar = new Avatar("player", (int)startPos.x, (int)startPos.y, startDirection);
+        avatar = new Avatar("player", (int)startPos.x, (int)startPos.y, facingDirection);
     }
 
     void Update()

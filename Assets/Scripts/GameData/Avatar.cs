@@ -1,56 +1,23 @@
+using UnityEngine;
+
 public class Avatar : Entity
 {
-    private Board.Direction _direction;
-    public Board.Direction direction { get => _direction; }
-    public Board.Direction forward { get => _direction; }
-    public Board.Direction back { get => Board.Rotation(_direction, 2); }
-    public Board.Direction right { get => Board.Rotation(_direction, 1); }
-    public Board.Direction left { get => Board.Rotation(_direction, -1); }
-    public bool IsFacing(Board.Direction dir) => dir == _direction;
-    public void RotateClockwise(int times = 1) => _direction = Board.Rotation(_direction, times);
-    public void RotateCounterclockwise(int times = 1) => _direction = Board.Rotation(_direction, -times);
+    private Direction.World _facingDir;
+    public Direction.World facingDirection { get => _facingDir; }
 
-    public enum Direction { FORWARD, RIGHT, LEFT, BACK }
+    public Direction.World forward { get => _facingDir; }
+    public Direction.World back { get => Direction.Relative.BACK.toWorld(_facingDir); }
+    public Direction.World right { get => Direction.Relative.RIGHT.toWorld(_facingDir); }
+    public Direction.World left { get => Direction.Relative.LEFT.toWorld(_facingDir); }
+    public bool IsFacing(Direction.World dir) => dir == _facingDir;
+    public void RotateClockwise(int times = 1) => _facingDir = _facingDir.Rotate(times);
+    public void RotateCounterclockwise(int times = 1) => _facingDir = _facingDir.Rotate(-times);
 
-    public void Move(Avatar.Direction dir, int steps = 1)
+    public void Move(Direction.World dir, int steps = 1)
     {
-        Board.Direction boardDir;
-        switch (dir)
-        {
-            case Direction.FORWARD:
-                boardDir = forward;
-                break;
-            case Direction.RIGHT:
-                boardDir = right;
-                break;
-            case Direction.LEFT:
-                boardDir = left;
-                break;
-            case Direction.BACK:
-                boardDir = back;
-                break;
-            default:
-                return;
-        }
-        int newX = _x;
-        int newY = _y;
-        switch (boardDir)
-        {
-            case Board.Direction.UP:
-                newY += steps;
-                break;
-            case Board.Direction.RIGHT:
-                newX += steps;
-                break;
-            case Board.Direction.DOWN:
-                newY -= steps;
-                break;
-            case Board.Direction.LEFT:
-                newX -= steps;
-                break;
-            default:
-                return;
-        }
+        Vector2 movement = Direction.WorldToVector2[dir] * steps;
+        int newX = _x += (int)movement.x;
+        int newY = _y += (int)movement.y;
 
         //TODO check board bounds here
 
@@ -60,14 +27,24 @@ public class Avatar : Entity
         RegisterInTile();
     }
 
-    public void MoveForward(int steps = 1) => Move(Avatar.Direction.FORWARD, steps);
-    public void MoveRight(int steps = 1) => Move(Avatar.Direction.RIGHT, steps);
-    public void MoveLeft(int steps = 1) => Move(Avatar.Direction.LEFT, steps);
-    public void MoveBack(int steps = 1) => Move(Avatar.Direction.BACK, steps);
-
-    public Avatar(string name, int x, int y, Board.Direction direction) : base(name, x, y)
+    public void Move(Direction.Relative dir, int steps = 1)
     {
-        _direction = direction;
+        Direction.World absDir = dir.toWorld(_facingDir);
+        Move(absDir, steps);
+    }
+
+    public void MoveForward(int steps = 1) => Move(Direction.Relative.FORWARD, steps);
+    public void MoveRight(int steps = 1) => Move(Direction.Relative.RIGHT, steps);
+    public void MoveLeft(int steps = 1) => Move(Direction.Relative.LEFT, steps);
+    public void MoveBack(int steps = 1) => Move(Direction.Relative.BACK, steps);
+    public void MoveNorth(int steps = 1) => Move(Direction.World.NORTH, steps);
+    public void MoveEast(int steps = 1) => Move(Direction.World.EAST, steps);
+    public void MoveSouth(int steps = 1) => Move(Direction.World.SOUTH, steps);
+    public void MoveWest(int steps = 1) => Move(Direction.World.WEST, steps);
+
+    public Avatar(string name, int x, int y, Direction.World facingDirection) : base(name, x, y)
+    {
+        _facingDir = facingDirection;
     }
 
     protected override string SetType() => "avatar";

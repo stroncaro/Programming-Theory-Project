@@ -1,18 +1,5 @@
-using System;
-using UnityEngine;
-
 public class Board
 {
-    public enum Direction { UP, RIGHT, DOWN, LEFT }
-
-    public static Direction Rotation(Direction origin, int steps)
-    {
-        int cap = Enum.GetNames(typeof(Direction)).Length;
-        int newDirInt = ((int)origin + steps) % cap;
-        if (newDirInt < 0) { newDirInt += cap; }
-        return (Direction)newDirInt;
-    }
-
     //number of rows and files determine size of board
     private int _rows, _files;
     public int rows { get => _rows; }

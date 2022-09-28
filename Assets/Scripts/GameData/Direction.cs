@@ -1,9 +1,20 @@
+using System.Collections.Generic;
+using UnityEngine;
+
 public static class Direction
 {
     public enum World { NORTH, EAST, SOUTH, WEST }
     public enum Relative { FORWARD, RIGHT, BACK, LEFT }
 
     public static int Count = 4;
+
+    public static Dictionary<World, Vector2> WorldToVector2 = new Dictionary<World, Vector2>
+    {
+        { World.NORTH, Vector2.up },
+        { World.EAST, Vector2.right },
+        { World.SOUTH, Vector2.down },
+        { World.WEST, Vector2.left }
+    };
 
     private static int _Wrap(int n, int minInclusive, int maxExclusive)
     {
