@@ -67,4 +67,6 @@ public abstract class Entity
         UnregisterFromTile();
         UnregisterEntity();
     }
+
+    public virtual void onProc() { }
 }

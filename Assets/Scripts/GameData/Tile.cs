@@ -9,7 +9,14 @@ public class Tile
     public void Deactivate() { if (_active) { _active = false; } }
 
     private List<int> _entityIds;
-    public void RegisterEntity(int id) => _entityIds.Add(id);
+    public void RegisterEntity(int id)
+    {
+        if (hasEntities)
+            foreach (Entity entity in GetEntities())
+                entity.onProc();
+
+        _entityIds.Add(id);
+    }
     public void UnregisterEntity(int id) => _entityIds.Remove(id);
 
     public bool hasEntities { get => _entityIds.Count > 0; }
