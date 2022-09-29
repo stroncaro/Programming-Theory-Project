@@ -24,11 +24,16 @@ public class Board
 
     public Vector2 ClampToBoard(Vector2 position)
     {
-        int x = (int)position.x;
-        int y = (int)position.y;
-        x = Mathf.Clamp(x, 0, _rows - 1);
-        y = Mathf.Clamp(y, 0, _files - 1);
-        return new Vector2(x, y);
+        if (!IsInBoard(position))
+        {
+            int x = (int)position.x;
+            int y = (int)position.y;
+            x = Mathf.Clamp(x, 0, _rows - 1);
+            y = Mathf.Clamp(y, 0, _files - 1);
+            position = new Vector2(x, y);
+        }
+        
+        return position;
     }
 
     public Board(int rows, int files)

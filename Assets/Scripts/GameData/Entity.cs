@@ -29,9 +29,7 @@ public abstract class Entity
     public Vector2 position { get => new Vector2(_x, _y); }
     public void SetPosition(Vector2 newPosition)
     {
-        var board = GameData.GetBoard();
-        if (!board.IsInBoard(newPosition))
-            newPosition = board.ClampToBoard(newPosition);
+        newPosition = GameData.GetBoard().ClampToBoard(newPosition);
 
         if (position != newPosition)
         {
