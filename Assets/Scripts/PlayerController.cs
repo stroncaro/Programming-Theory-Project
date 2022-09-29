@@ -28,7 +28,8 @@ public class PlayerController : MonoBehaviour
             {
                 Vector2 trapDirection = avatar.forwardVector;
                 Vector2 trapPos = avatar.position + trapDirection;
-                new Trap("playerTrap", (int)trapPos.x, (int)trapPos.y);
+                if (GameData.GetBoard().IsInBoard(trapPos))
+                    new Trap("playerTrap", (int)trapPos.x, (int)trapPos.y);
             }
         }
     }

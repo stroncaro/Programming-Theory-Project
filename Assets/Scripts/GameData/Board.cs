@@ -13,6 +13,24 @@ public class Board
     public Tile GetTile(int x, int y) => _tiles[x, y];
     public Tile GetTile(Vector2 coordinates) => GetTile((int)coordinates.x, (int)coordinates.y);
 
+    public bool IsInBoard(int x, int y)
+    {
+        bool xOk = x >= 0 && x < _rows;
+        bool yOk = y >= 0 && y < _files;
+        return xOk && yOk;
+    }
+
+    public bool IsInBoard(Vector2 position) => IsInBoard((int)position.x, (int)position.y);
+
+    public Vector2 ClampToBoard(Vector2 position)
+    {
+        int x = (int)position.x;
+        int y = (int)position.y;
+        x = Mathf.Clamp(x, 0, _rows - 1);
+        y = Mathf.Clamp(y, 0, _files - 1);
+        return new Vector2(x, y);
+    }
+
     public Board(int rows, int files)
     {
         //set board size
