@@ -27,7 +27,7 @@ public abstract class Entity
     public int x { get => _x; }
     public int y { get => _y; }
     public Vector2 position { get => new Vector2(_x, _y); }
-    public void SetPosition(Vector2 newPosition)
+    protected void SetPosition(Vector2 newPosition)
     {
         newPosition = GameData.GetBoard().ClampToBoard(newPosition);
 
