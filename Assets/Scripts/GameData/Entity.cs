@@ -27,14 +27,19 @@ public abstract class Entity
     public int x { get => _x; }
     public int y { get => _y; }
     public Vector2 position { get => new Vector2(_x, _y); }
-    public void SetPosition(Vector2 position)
+    public void SetPosition(Vector2 newPosition)
     {
-        int newX = (int)position.x;
-        int newY = (int)position.y;
-        int maxX = GameData.GetBoard().rows - 1;
-        int maxY = GameData.GetBoard().files - 1;
-        _x = Mathf.Clamp(newX, 0, maxX);
-        _y = Mathf.Clamp(newY, 0, maxY);
+        var board = GameData.GetBoard();
+        if (!board.IsInBoard(newPosition))
+            newPosition = board.ClampToBoard(newPosition);
+
+        if (position != newPosition)
+        {
+            UnregisterFromTile();
+            _x = (int)newPosition.x;
+            _y = (int)newPosition.y;
+            RegisterInTile();
+        }
     }
 
     public Vector2 northVector { get => Direction.WorldToVector2[Direction.World.NORTH]; }

@@ -24,10 +24,7 @@ public class Avatar : Entity
     {
         Vector2 movement = Direction.WorldToVector2[dir] * steps;
         Vector2 newPosition = position + movement;
-
-        UnregisterFromTile();
         SetPosition(newPosition);
-        RegisterInTile();
     }
 
     public void Translate(Direction.Relative dir, int steps = 1)
