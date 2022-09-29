@@ -13,17 +13,17 @@ public abstract class Entity
         }
     }
 
-    protected readonly int _id;
+    private readonly int _id;
     public int id { get => _id; }
 
-    protected readonly string _name;
+    private readonly string _name;
     public string name { get => _name; }
 
-    protected readonly string _type;
+    private readonly string _type;
     public string type { get => _type; }
     protected abstract string SetType();
 
-    protected int _x, _y;
+    private int _x, _y;
     public int x { get => _x; }
     public int y { get => _y; }
     public Vector2 position { get => new Vector2(_x, _y); }
@@ -57,13 +57,15 @@ public abstract class Entity
         RegisterEntity();
     }
 
-    protected void RegisterInTile(int x, int y) => GameData.GetBoard().GetTile(x, y).RegisterEntity(_id);
-    protected void RegisterInTile() => RegisterInTile(_x, _y);
-    protected void UnregisterFromTile(int x, int y) => GameData.GetBoard().GetTile(x, y).UnregisterEntity(_id);
-    protected void UnregisterFromTile() => UnregisterFromTile(_x, _y);
+    private void RegisterInTile(int x, int y) => GameData.GetBoard().GetTile(x, y).RegisterEntity(_id);
+    private void RegisterInTile(Vector2 tilePos) => RegisterInTile((int)tilePos.x, (int)tilePos.y);
+    private void RegisterInTile() => RegisterInTile(_x, _y);
+    private void UnregisterFromTile(int x, int y) => GameData.GetBoard().GetTile(x, y).UnregisterEntity(_id);
+    private void UnregisterFromTile(Vector2 tilePos) => UnregisterFromTile((int)tilePos.x, (int)tilePos.y);
+    private void UnregisterFromTile() => UnregisterFromTile(_x, _y);
 
-    protected void RegisterEntity() => GameData.AddEntity(this);
-    protected void UnregisterEntity() => GameData.RemoveEntity(this);
+    private void RegisterEntity() => GameData.AddEntity(this);
+    private void UnregisterEntity() => GameData.RemoveEntity(this);
 
     public void Kill()
     {
