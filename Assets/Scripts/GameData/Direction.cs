@@ -6,7 +6,7 @@ public static class Direction
     public enum World { NORTH, EAST, SOUTH, WEST }
     public enum Relative { FORWARD, RIGHT, BACK, LEFT }
 
-    public static int Count = 4;
+    public static readonly int Count = 4;
 
     public static Dictionary<World, Vector2> WorldToVector2 = new Dictionary<World, Vector2>
     {

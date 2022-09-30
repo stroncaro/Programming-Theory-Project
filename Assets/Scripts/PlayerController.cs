@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.D)) { avatar.MoveRight(); }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                Vector2 trapDirection = avatar.forwardVector;
+                Vector2 trapDirection = avatar.forward;
                 Vector2 trapPos = avatar.position + trapDirection;
                 if (GameData.GetBoard().IsInBoard(trapPos))
                     new Trap("playerTrap", (int)trapPos.x, (int)trapPos.y);
