@@ -6,7 +6,7 @@ using TMPro;
 
 public class GUITextOutput : MonoBehaviour
 {
-    private TextMeshPro[,] _output;
+    private GameObject[,] _output;
 
     [SerializeField] private float _cellWidth = 0.5f;
     [SerializeField] private float _fontSize = 6;
@@ -26,10 +26,16 @@ public class GUITextOutput : MonoBehaviour
         { Direction.World.WEST , "\u02C2" }
     };
 
-    private void Initialize()
+    private TextMeshPro _statusBar;
+    [SerializeField] private float _statusBarFontSize = 6;
+    [SerializeField] private FontStyles _statusBarFontStyle;
+    [SerializeField] private TextAlignmentOptions _statusBarAlignment;
+    [SerializeField] private Vector2 _statusBarSize;
+
+    private void InitializeTiles()
     {
         var board = GameData.GetBoard();
-        _output = new TextMeshPro[board.rows, board.files];
+        _output = new GameObject[board.rows, board.files];
 
         for (int x = 0; x < board.rows; x++)
         {
@@ -39,8 +45,13 @@ public class GUITextOutput : MonoBehaviour
                 newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
                 newObj.transform.SetParent(transform);
 
-                newObj.AddComponent<TextMeshPro>();
-                var newObjTMPro = newObj.GetComponent<TextMeshPro>();
+                var newObjCollider = newObj.AddComponent<BoxCollider2D>();
+                newObjCollider.size = new Vector2(0.5f, 0.5f);
+                newObjCollider.offset = Vector2.zero;
+
+                var newObjScript = newObj.AddComponent<GUIBoardPosition>();
+
+                var newObjTMPro = newObj.AddComponent<TextMeshPro>();
                 newObjTMPro.fontSize = _fontSize;
                 newObjTMPro.fontStyle = _fontStyle;
                 newObjTMPro.alignment = _alignment;
@@ -49,22 +60,48 @@ public class GUITextOutput : MonoBehaviour
                 var newObjRectTransform = newObj.GetComponent<RectTransform>();
                 newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
 
-                _output[x, y] = newObjTMPro;
+                _output[x, y] = newObj;
             }
         }
+    }
+
+    private void InitializeStatusBar()
+    {
+        var newObj = new GameObject("StatusBar");
+        newObj.transform.position = Vector2.zero;
+        newObj.transform.SetParent(transform);
+
+        var newObjTMPro = newObj.AddComponent<TextMeshPro>();
+        newObjTMPro.fontSize = _statusBarFontSize;
+        newObjTMPro.fontStyle = _statusBarFontStyle;
+        newObjTMPro.alignment = _statusBarAlignment;
+
+        var newObjRectTransform = newObj.GetComponent<RectTransform>();
+        newObjRectTransform.sizeDelta = _statusBarSize;
+
+        _statusBar = newObjTMPro;
+    }
+
+    private void Initialize()
+    {
+        InitializeTiles();
+        InitializeStatusBar();
     }
 
     void Start() => Initialize();
 
     private void UpdateOutput()
     {
+        bool mouseOverTile = false; //keep track if the mouse is over a tile
+
         var board = GameData.GetBoard();
         for (int x = 0; x < board.rows; x++)
         {
             for (int y = 0; y < board.files; y++)
             {
+                //update tile
                 var thisTile = board.GetTile(x, y);
-                var thisTMPro = _output[x, y];
+                var thisTMPro = _output[x, y].GetComponent<TextMeshPro>();
                 thisTMPro.color = thisTile.isActive ? _activeTileColor : _inactiveTileColor;
 
                 string text = "_";
@@ -82,8 +119,19 @@ public class GUITextOutput : MonoBehaviour
                     }
                 }
                 thisTMPro.text = text;
+
+                //update status bar text
+                var thisScript = _output[x, y].GetComponent<GUIBoardPosition>();
+                if (thisScript.mouseOver)
+                {
+                    mouseOverTile = true;
+                    _statusBar.gameObject.SetActive(true);
+                    _statusBar.text = $"{thisTMPro.gameObject.name}";
+                }
             }
         }
+
+        if (!mouseOverTile) _statusBar.gameObject.SetActive(false);
     }
 
     private void Update() => UpdateOutput();
