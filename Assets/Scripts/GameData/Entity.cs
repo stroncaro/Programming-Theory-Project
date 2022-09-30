@@ -40,11 +40,6 @@ public abstract class Entity
         }
     }
 
-    public Vector2 northVector { get => Direction.WorldToVector2[Direction.World.NORTH]; }
-    public Vector2 eastVector { get => Direction.WorldToVector2[Direction.World.EAST]; }
-    public Vector2 southVector { get => Direction.WorldToVector2[Direction.World.SOUTH]; }
-    public Vector2 westVector { get => Direction.WorldToVector2[Direction.World.WEST]; }
-
     public Entity(string name, int x = 0, int y = 0)
     {
         _id = EntityIDGenerator.GetNewId();
