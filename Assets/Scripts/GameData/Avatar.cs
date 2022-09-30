@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Avatar : Entity
@@ -14,8 +15,16 @@ public class Avatar : Entity
     public Vector2 left { get => GetDirection(Direction.Relative.LEFT).toVector2(); }
 
     public bool IsFacing(Direction.World dir) => dir == _facingDir;
-    public void RotateClockwise(int times = 1) => _facingDir = _facingDir.Rotate(times);
-    public void RotateCounterclockwise(int times = 1) => _facingDir = _facingDir.Rotate(-times);
+    public void RotateClockwise(int times = 1)
+    {
+        _facingDir = _facingDir.Rotate(times);
+        OnEntityDataUpdated();
+    }
+    public void RotateCounterclockwise(int times = 1)
+    {
+        _facingDir = _facingDir.Rotate(-times);
+        OnEntityDataUpdated();
+    }
 
     public void Translate(Vector2 movement)
     {

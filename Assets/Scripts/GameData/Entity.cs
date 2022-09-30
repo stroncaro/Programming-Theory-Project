@@ -1,7 +1,11 @@
+using System;
 using UnityEngine;
 
 public abstract class Entity
 {
+    public EventHandler EntityDataUpdated;
+    public virtual void OnEntityDataUpdated() => EntityDataUpdated?.Invoke(this, null);
+
     private static class EntityIDGenerator
     {
         private static int _counter = 0;
@@ -48,8 +52,8 @@ public abstract class Entity
         _y = y;
         _type = SetType();
 
-        RegisterInTile();
         RegisterEntity();
+        RegisterInTile();
     }
 
     private void RegisterInTile(int x, int y) => GameData.GetBoard().GetTile(x, y).RegisterEntity(_id);

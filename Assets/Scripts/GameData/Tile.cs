@@ -1,23 +1,56 @@
+using System;
 using System.Collections.Generic;
 
 public class Tile
 {
-    private bool _active;   //flag if the tile is in the active game area
-    public bool isActive { get => _active; set => _active = value; }
-    public void SetActive(bool status) { _active = status; }
-    public void Activate() { if (!_active) { _active = true; } }
-    public void Deactivate() { if (_active) { _active = false; } }
+    //event to tell suscriptors tile data has been updated
+    public event EventHandler TileDataUpdated;
+    protected virtual void OnTileDataUpdated() => TileDataUpdated?.Invoke(this, null);
+
+    //when entity updates, tell suscriptors tile data has updated
+    protected virtual void OnEntityDataUpdated(object source, EventArgs args) => OnTileDataUpdated();
+
+
+    private bool _active;
+    public bool isActive
+    {
+        get => _active;
+        set
+        {
+            _active = value;
+            OnTileDataUpdated();
+        }
+    }    
+    public void SetActive(bool status) { isActive = status; }
+    public void Activate() { if (!isActive) { isActive = true; } }
+    public void Deactivate() { if (isActive) { isActive = false; } }
 
     private List<int> _entityIds;
     public void RegisterEntity(int id)
     {
+        //proc entities that are already on tile
         if (hasEntities)
             foreach (Entity entity in GetEntities())
                 entity.onProc();
 
+        //add entity to tile
         _entityIds.Add(id);
+
+        //subscribe to get updates on entity
+        GameData.GetEntityById(id).EntityDataUpdated += OnEntityDataUpdated;
+        
+        //update suscribers
+        OnTileDataUpdated();
     }
-    public void UnregisterEntity(int id) => _entityIds.Remove(id);
+    public void UnregisterEntity(int id)
+    {
+        _entityIds.Remove(id);
+        
+        //unsuscribe from entity
+        GameData.GetEntityById(id).EntityDataUpdated -= OnEntityDataUpdated; 
+        
+        OnTileDataUpdated();
+    }
 
     public bool hasEntities { get => _entityIds.Count > 0; }
     public bool ContainsEntity(int id) => _entityIds.Contains(id);

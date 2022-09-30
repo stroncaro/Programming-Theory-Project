@@ -16,6 +16,7 @@ public class GUITextOutput : MonoBehaviour
 
     [SerializeField] private Color _activeTileColor = Color.white;
     [SerializeField] private Color _inactiveTileColor = Color.black;
+    [SerializeField] private string _emptySymbol = "_";
     [SerializeField] private string _trapSymbol = "X";
 
     private Dictionary<Direction.World, string> _avatarDirectionSymbol = new Dictionary<Direction.World, string>
@@ -32,6 +33,42 @@ public class GUITextOutput : MonoBehaviour
     [SerializeField] private TextAlignmentOptions _statusBarAlignment;
     [SerializeField] private Vector2 _statusBarSize;
 
+    public Color ActiveTileColor { get => _activeTileColor; }
+    public Color InactiveTileColor { get => _inactiveTileColor; }
+    public string EmptySymbol { get => _emptySymbol; }
+    public string TrapSymbol { get => _trapSymbol; }
+    public Dictionary<Direction.World, string> AvatarDirectionSymbol { get => _avatarDirectionSymbol; }
+
+    private GameObject InitializeTile(int x, int y)
+    {
+        var newObj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
+        newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
+        newObj.transform.SetParent(transform);
+
+        var newObjCollider = newObj.AddComponent<BoxCollider2D>();
+        newObjCollider.size = new Vector2(0.5f, 0.5f);
+        newObjCollider.offset = Vector2.zero;
+
+        var newObjTMPro = newObj.AddComponent<TextMeshPro>();
+        newObjTMPro.fontSize = _fontSize;
+        newObjTMPro.fontStyle = _fontStyle;
+        newObjTMPro.alignment = _alignment;
+        newObjTMPro.enableWordWrapping = _enableTextWrapping;
+
+        var newObjRectTransform = newObj.GetComponent<RectTransform>();
+        newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
+
+        var newObjScript = newObj.AddComponent<GUIBoardPosition>();
+        newObjScript._tile = GameData.GetBoard().GetTile(x, y);
+        newObjScript._parent = this;
+        newObjScript._tmpro = newObjTMPro;
+        newObjScript._tile.TileDataUpdated += newObjScript.OnDataUpdated;
+        
+        newObjScript.UpdateTile();
+
+        return newObj;
+    }
+
     private void InitializeTiles()
     {
         var board = GameData.GetBoard();
@@ -41,26 +78,7 @@ public class GUITextOutput : MonoBehaviour
         {
             for (int y = 0; y < board.files; y++)
             {
-                var newObj = new GameObject(string.Format("BoardPosition:{0},{1}", x, y));
-                newObj.transform.position = new Vector2(x * _cellWidth, y * _cellWidth);
-                newObj.transform.SetParent(transform);
-
-                var newObjCollider = newObj.AddComponent<BoxCollider2D>();
-                newObjCollider.size = new Vector2(0.5f, 0.5f);
-                newObjCollider.offset = Vector2.zero;
-
-                var newObjScript = newObj.AddComponent<GUIBoardPosition>();
-
-                var newObjTMPro = newObj.AddComponent<TextMeshPro>();
-                newObjTMPro.fontSize = _fontSize;
-                newObjTMPro.fontStyle = _fontStyle;
-                newObjTMPro.alignment = _alignment;
-                newObjTMPro.enableWordWrapping = _enableTextWrapping;
-
-                var newObjRectTransform = newObj.GetComponent<RectTransform>();
-                newObjRectTransform.sizeDelta = new Vector2(_cellWidth, _cellWidth);
-
-                _output[x, y] = newObj;
+                _output[x, y] = InitializeTile(x, y);
             }
         }
     }
@@ -134,5 +152,5 @@ public class GUITextOutput : MonoBehaviour
         if (!mouseOverTile) _statusBar.gameObject.SetActive(false);
     }
 
-    private void Update() => UpdateOutput();
+    //private void Update() => UpdateOutput();
 }

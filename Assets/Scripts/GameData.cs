@@ -10,7 +10,7 @@ public class GameData : MonoBehaviour
     private Board _board;
     public static Board GetBoard() => Instance._board;
 
-    private List<Entity> _entities = new List<Entity>();
+    private List<Entity> _entities;
     public static void AddEntity(Entity entity) => Instance._entities.Add(entity);
     public static void RemoveEntity(Entity entity) => Instance._entities.Remove(entity);
     public static Entity GetEntityById(int id) => Instance._entities.Find(entity => entity.id == id);
@@ -25,7 +25,7 @@ public class GameData : MonoBehaviour
 
         Instance = this;
         _board = new Board((int)_boardSize.x, (int)_boardSize.y);
-
+        _entities = new List<Entity>();
         //StartCoroutine(RandomizeBoardContent());
     }
 
