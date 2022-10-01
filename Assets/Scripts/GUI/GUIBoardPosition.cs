@@ -31,7 +31,7 @@ public class GUIBoardPosition : MonoBehaviour
 
     public bool mouseOver = false;
 
-    public void UpdateTileText()
+    private void UpdateTileText()
     {
         string text = GUIManager.EmptySymbol;
         if (_tile.hasEntities)
@@ -49,12 +49,12 @@ public class GUIBoardPosition : MonoBehaviour
         }
         _tmpro.text = text;
     }
-    public void UpdateTileColor()
+    private void UpdateTileColor()
     {
         _tmpro.color = _tile.isActive ? GUIManager.ActiveTileColor : GUIManager.InactiveTileColor;
     }
 
-    public void UpdateTile()
+    private void UpdateTile()
     {
         UpdateTileColor();
         UpdateTileText();
@@ -62,14 +62,8 @@ public class GUIBoardPosition : MonoBehaviour
 
     public void OnDataUpdated(object source, EventArgs args) => UpdateTile();
 
-    public void Initialize()
+    private void Initialize()
     {
-        if (_initialized)
-        {
-            Debug.LogWarning($"{gameObject.name}.Initialize() => Obj already initialized. Ignoring request");
-            return;
-        }
-
         if (_tileCoordinates == null)
         {
             Debug.LogWarning($"{gameObject.name}.Initialize() => tile coordinates not set");
@@ -92,9 +86,11 @@ public class GUIBoardPosition : MonoBehaviour
         transform.position = new Vector2(_tileX * GUIManager.CellWidth, _tileY * GUIManager.CellWidth);
         _tile = GameData.GetBoard().GetTile(_tileX, _tileY);
         _tile.TileDataUpdated += OnDataUpdated;
+
+        _initialized = true;
     }
 
-    public void Start()
+    private void Start()
     {
         Initialize();
         if (_initialized) UpdateTile();

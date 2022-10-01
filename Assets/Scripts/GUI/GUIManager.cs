@@ -76,16 +76,8 @@ public class GUIManager : MonoBehaviour
     private GameObject CreateStatusBar()
     {
         var newObj = new GameObject("StatusBar");
-        newObj.transform.position = Vector2.zero;
         newObj.transform.SetParent(transform);
-
-        var newObjTMPro = newObj.AddComponent<TextMeshPro>();
-        newObjTMPro.fontSize = _statusBarFontSize;
-        newObjTMPro.fontStyle = _statusBarFontStyle;
-        newObjTMPro.alignment = _statusBarAlignment;
-
-        var newObjRectTransform = newObj.GetComponent<RectTransform>();
-        newObjRectTransform.sizeDelta = _statusBarSize;
+        var newObjScript = newObj.AddComponent<GUIStatusBar>();
 
         return newObj;
     }
