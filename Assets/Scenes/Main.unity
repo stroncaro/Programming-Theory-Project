@@ -308,7 +308,7 @@ MonoBehaviour:
   _trapSymbol: X
   _statusBarFontSize: 3
   _statusBarFontStyle: 0
-  _statusBarAlignment: 257
+  _statusBarAlignment: 1025
   _statusBarSize: {x: 10, y: 0.5}
 --- !u!1 &1050626454
 GameObject:
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee6b45dd54182040af15d1b1dfe3b5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _boardSize: {x: 10, y: 10}
+  _boardSize: {x: 9, y: 9}
 --- !u!4 &1050626456
 Transform:
   m_ObjectHideFlags: 0

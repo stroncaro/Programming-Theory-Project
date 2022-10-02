@@ -46,8 +46,8 @@ public class GUIManager : MonoBehaviour
     public static FontStyles StatusBarFontStyle { get => _instance._statusBarFontStyle; }
     [SerializeField] private TextAlignmentOptions _statusBarAlignment;
     public static TextAlignmentOptions StatusBarAlignment { get => _instance._statusBarAlignment; }
-    [SerializeField] private Vector2 _statusBarSize;
-    public static Vector2 StatusBarSize { get => _instance._statusBarSize; }
+    [SerializeField] private float _statusBarHeight;
+    public static float StatusBarHeight { get => _instance._statusBarHeight; }
 
     private GameObject CreateBoardPosition(int x, int y)
     {

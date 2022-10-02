@@ -44,15 +44,19 @@ public class GUIStatusBar : MonoBehaviour
 
     private void Initialize()
     {
-        transform.position = Vector2.zero;
         _tmpro = gameObject.AddComponent<TextMeshPro>();
-
         _tmpro.fontSize = GUIManager.StatusBarFontSize;
         _tmpro.fontStyle = GUIManager.StatusBarFontStyle;
         _tmpro.alignment = GUIManager.StatusBarAlignment;
 
         _rectTransform = gameObject.GetComponent<RectTransform>();
-        _rectTransform.sizeDelta = GUIManager.StatusBarSize;
+        var camera = Camera.main;
+        var screenBottomLeft = camera.ViewportToWorldPoint(Vector3.zero);
+        var screenBottomRight = camera.ViewportToWorldPoint(Vector3.right);
+        var sizeX = screenBottomRight.x - screenBottomLeft.x;
+        _rectTransform.sizeDelta = new Vector2(sizeX, GUIManager.StatusBarHeight);
+        _rectTransform.pivot = Vector2.zero;
+        transform.position = new Vector3(screenBottomLeft.x, screenBottomLeft.y, 0);
 
         foreach (GameObject boardPosition in GUIManager.GetBoardPositions())
         {
