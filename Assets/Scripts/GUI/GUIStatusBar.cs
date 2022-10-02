@@ -12,15 +12,15 @@ public class GUIStatusBar : MonoBehaviour
         string contents = "";
         if (bp.Tile.hasEntities)
         {
+            contents = ": ";
             foreach (Entity entity in bp.Tile.GetEntities())
             {
-                if (contents != "") contents += ", ";
+                if (contents != ": ") contents += ", ";
                 contents += entity.name;
             }
         }
-        else contents = "Empty";
-
-        _tmpro.text = $"({bp.x},{bp.y}): {contents}";
+        
+        _tmpro.text = $"({bp.x},{bp.y}){contents}";
     }
 
     protected virtual void OnMouseEnterTile(object source, EventArgs args)

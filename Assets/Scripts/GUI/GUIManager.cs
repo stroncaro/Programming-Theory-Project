@@ -83,6 +83,17 @@ public class GUIManager : MonoBehaviour
         return newObj;
     }
 
+    private void CenterCameraOnBoard()
+    {
+        var board = GameData.GetBoard();
+        float x = _cellWidth * (board.rows -1) / 2;
+        float y = _cellWidth * (board.files -1) / 2;
+        float z = -10;
+
+        var camera = Camera.main;
+        camera.transform.position = new Vector3(x, y, z);
+    }
+
     private void Initialize()
     {
         if (_instance != null)
@@ -94,6 +105,8 @@ public class GUIManager : MonoBehaviour
         _instance = this;
         _boardPositions = CreateBoardPositions();
         _statusBar = CreateStatusBar();
+
+        CenterCameraOnBoard();
     }
 
     void Start() => Initialize();
