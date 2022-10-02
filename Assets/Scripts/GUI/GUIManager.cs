@@ -9,6 +9,7 @@ public class GUIManager : MonoBehaviour
     private static GUIManager _instance;
 
     private GameObject[,] _boardPositions;
+    public static GameObject[,] GetBoardPositions() { return _instance._boardPositions; }
     [SerializeField] private float _cellWidth = 0.5f;
     public static float CellWidth { get => _instance._cellWidth; }
     [SerializeField] private float _fontSize = 6;

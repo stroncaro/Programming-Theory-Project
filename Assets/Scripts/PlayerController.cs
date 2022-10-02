@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        //create an avatar
-        avatar = new Avatar("player", (int)startPos.x, (int)startPos.y, facingDirection);
+        avatar = new Avatar("Player", (int)startPos.x, (int)startPos.y, facingDirection);
     }
 
     void Update()
@@ -29,7 +28,7 @@ public class PlayerController : MonoBehaviour
                 Vector2 trapDirection = avatar.forward;
                 Vector2 trapPos = avatar.position + trapDirection;
                 if (GameData.GetBoard().IsInBoard(trapPos))
-                    new Trap("playerTrap", (int)trapPos.x, (int)trapPos.y);
+                    new Trap("Trap", (int)trapPos.x, (int)trapPos.y);
             }
         }
     }

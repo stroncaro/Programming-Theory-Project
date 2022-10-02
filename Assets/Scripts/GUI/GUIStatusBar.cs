@@ -1,14 +1,46 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using TMPro;
 
 public class GUIStatusBar : MonoBehaviour
 {
-    private bool _initialized = false;
-
     private TextMeshPro _tmpro;
     private RectTransform _rectTransform;
+
+    private void UpdateText(GUIBoardPosition bp)
+    {
+        string contents = "";
+        if (bp.Tile.hasEntities)
+        {
+            foreach (Entity entity in bp.Tile.GetEntities())
+            {
+                if (contents != "") contents += ", ";
+                contents += entity.name;
+            }
+        }
+        else contents = "Empty";
+
+        _tmpro.text = $"({bp.x},{bp.y}): {contents}";
+    }
+
+    protected virtual void OnMouseEnterTile(object source, EventArgs args)
+    {
+        var bp = source as GUIBoardPosition;
+        UpdateText(bp);
+        bp.BoardPositionDataUpdated += OnBoardPositionDataUpdated;
+    }
+
+    protected virtual void OnMouseExitTile(object source, EventArgs args)
+    {
+        var bp = source as GUIBoardPosition;
+        bp.BoardPositionDataUpdated -= OnBoardPositionDataUpdated;
+        _tmpro.text = "";
+    }
+
+    protected virtual void OnBoardPositionDataUpdated(object source, EventArgs args)
+    {
+        UpdateText(source as GUIBoardPosition);
+    }
 
     private void Initialize()
     {
@@ -22,23 +54,13 @@ public class GUIStatusBar : MonoBehaviour
         _rectTransform = gameObject.GetComponent<RectTransform>();
         _rectTransform.sizeDelta = GUIManager.StatusBarSize;
 
-        _initialized = true;
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Initialize();
-        /*
-        var thisScript = _tiles[x, y].GetComponent<GUIBoardPosition>();
-        if (thisScript.mouseOver)
+        foreach (GameObject boardPosition in GUIManager.GetBoardPositions())
         {
-            mouseOverTile = true;
-            _statusBar.gameObject.SetActive(true);
-            _statusBar.text = $"{thisTMPro.gameObject.name}";
+            var gui = boardPosition.GetComponent<GUIBoardPosition>();
+            gui.MouseEnterTile += OnMouseEnterTile;
+            gui.MouseExitTile += OnMouseExitTile;
         }
-        */
-
-        
     }
+
+    void Start() => Initialize();
 }

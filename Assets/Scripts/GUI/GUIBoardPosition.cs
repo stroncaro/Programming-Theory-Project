@@ -7,9 +7,11 @@ public class GUIBoardPosition : MonoBehaviour
     private bool _initialized = false;
     
     private Vector2Int _tileCoordinates;
-    private int _tileX { get => _tileCoordinates.x; }
-    private int _tileY { get => _tileCoordinates.y; }
+    public Vector2Int TileCoordinates { get => _tileCoordinates; }
+    public int x { get => _tileCoordinates.x; }
+    public int y { get => _tileCoordinates.y; }
     private Tile _tile;
+    public Tile Tile { get => _tile; }
 
     public void SetTileCoordinates(int x, int y)
     {
@@ -26,10 +28,14 @@ public class GUIBoardPosition : MonoBehaviour
     private TextMeshPro _tmpro;
     private RectTransform _rectTransform;
 
-    public EventHandler MouseOverTile;
-    protected virtual void OnMouseOverTile() => MouseOverTile?.Invoke(this, null);
+    public EventHandler MouseEnterTile;
+    protected virtual void OnMouseEnterTile() => MouseEnterTile?.Invoke(this, null);
 
-    public bool mouseOver = false;
+    public EventHandler MouseExitTile;
+    protected virtual void OnMouseExitTile() => MouseExitTile?.Invoke(this, null);
+
+    public EventHandler BoardPositionDataUpdated;
+    protected virtual void OnBoardPositionDataUpdated() => BoardPositionDataUpdated?.Invoke(this, null);
 
     private void UpdateTileText()
     {
@@ -58,9 +64,10 @@ public class GUIBoardPosition : MonoBehaviour
     {
         UpdateTileColor();
         UpdateTileText();
+        OnBoardPositionDataUpdated();
     }
 
-    public void OnDataUpdated(object source, EventArgs args) => UpdateTile();
+    public void OnTileDataUpdated(object source, EventArgs args) => UpdateTile();
 
     private void Initialize()
     {
@@ -83,9 +90,9 @@ public class GUIBoardPosition : MonoBehaviour
         _rectTransform = gameObject.GetComponent<RectTransform>();
         _rectTransform.sizeDelta = new Vector2(GUIManager.CellWidth, GUIManager.CellWidth);
 
-        transform.position = new Vector2(_tileX * GUIManager.CellWidth, _tileY * GUIManager.CellWidth);
-        _tile = GameData.GetBoard().GetTile(_tileX, _tileY);
-        _tile.TileDataUpdated += OnDataUpdated;
+        transform.position = new Vector2(x * GUIManager.CellWidth, y * GUIManager.CellWidth);
+        _tile = GameData.GetBoard().GetTile(x, y);
+        _tile.TileDataUpdated += OnTileDataUpdated;
 
         _initialized = true;
     }
@@ -96,6 +103,6 @@ public class GUIBoardPosition : MonoBehaviour
         if (_initialized) UpdateTile();
     }
 
-    private void OnMouseEnter() => mouseOver = true;
-    private void OnMouseExit() => mouseOver = false;
+    private void OnMouseEnter() => OnMouseEnterTile();
+    private void OnMouseExit() => OnMouseExitTile();
 }
